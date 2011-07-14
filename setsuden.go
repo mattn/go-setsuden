@@ -98,7 +98,7 @@ func GetPeakOfDemand(region string, date ...string) (pd []Peak, err os.Error) {
 	if len(d) == 0 {
 		d = "today"
 	}
-	pr, err := getUsage("usage", region, "demand", d)
+	pr, err := getUsage("peak", region, "demand", d)
 	if err != nil {
 		return
 	}
