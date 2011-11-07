@@ -2,7 +2,6 @@ package setsuden
 
 import (
 	"http"
-	"os"
 	"strings"
 	"xml"
 )
@@ -27,7 +26,7 @@ type powerReport struct {
 	Peak_demand     []Peak  `xml:"peak_demand>demand"`
 }
 
-func getUsage(typ, region, kind, date string) (pr *powerReport, err os.Error) {
+func getUsage(typ, region, kind, date string) (pr *powerReport, err error) {
 	res, err := http.Get("http://api.gosetsuden.jp/" + typ + "/" + region + "/" + kind + "/" + date + "?output=xml")
 	if err != nil {
 		return
@@ -41,7 +40,7 @@ func getUsage(typ, region, kind, date string) (pr *powerReport, err os.Error) {
 	return
 }
 
-func GetActualUsage(region string, date ...string) (pu []Usage, err os.Error) {
+func GetActualUsage(region string, date ...string) (pu []Usage, err error) {
 	d := strings.Join(date, "/")
 	if len(d) == 0 {
 		d = "latest"
@@ -54,7 +53,7 @@ func GetActualUsage(region string, date ...string) (pu []Usage, err os.Error) {
 	return
 }
 
-func GetEstimatedUsage(region string, date ...string) (pu []Usage, err os.Error) {
+func GetEstimatedUsage(region string, date ...string) (pu []Usage, err error) {
 	d := strings.Join(date, "/")
 	if len(d) == 0 {
 		d = "latest"
@@ -67,7 +66,7 @@ func GetEstimatedUsage(region string, date ...string) (pu []Usage, err os.Error)
 	return
 }
 
-func GetInstantUsage(region string, date ...string) (pu []Usage, err os.Error) {
+func GetInstantUsage(region string, date ...string) (pu []Usage, err error) {
 	d := strings.Join(date, "/")
 	if len(d) == 0 {
 		d = "latest"
@@ -80,7 +79,7 @@ func GetInstantUsage(region string, date ...string) (pu []Usage, err os.Error) {
 	return
 }
 
-func GetPeakOfSupply(region string, date ...string) (ps []Peak, err os.Error) {
+func GetPeakOfSupply(region string, date ...string) (ps []Peak, err error) {
 	d := strings.Join(date, "/")
 	if len(d) == 0 {
 		d = "today"
@@ -93,7 +92,7 @@ func GetPeakOfSupply(region string, date ...string) (ps []Peak, err os.Error) {
 	return
 }
 
-func GetPeakOfDemand(region string, date ...string) (pd []Peak, err os.Error) {
+func GetPeakOfDemand(region string, date ...string) (pd []Peak, err error) {
 	d := strings.Join(date, "/")
 	if len(d) == 0 {
 		d = "today"
