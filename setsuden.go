@@ -1,9 +1,9 @@
 package setsuden
 
 import (
-	"http"
+	"encoding/xml"
+	"net/http"
 	"strings"
-	"xml"
 )
 
 type Usage struct {
