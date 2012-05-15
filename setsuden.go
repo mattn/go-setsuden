@@ -2,6 +2,7 @@ package setsuden
 
 import (
 	"encoding/xml"
+	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -33,7 +34,11 @@ func getUsage(typ, region, kind, date string) (pr *powerReport, err error) {
 	}
 	defer res.Body.Close()
 	pr = new(powerReport)
-	err = xml.Unmarshal(res.Body, pr)
+	b, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return
+	}
+	err = xml.Unmarshal(b, pr)
 	if err != nil {
 		return
 	}
